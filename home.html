@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <title>가상자산 시세목록</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="mainList">
+        <ul>
+            <todo-item
+                v-for="item in listData"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+            ></todo-item>
+        </ul>
+    </div>
+    <script>
+        var mainList = new Vue({
+            el : '#mainList',
+            data : {
+                listData : []
+            },
+            created() {
+                fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=krw&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d')
+                .then(r => {                    
+                    if(r.ok) {
+                        return r.json();
+                    }
+                    throw new Error();
+                })
+                .then(j => {
+                    this.listData = j;
+                })
+                .catch(e=>{
+                    this.listData = '리스트 조회에 실패했습니다.';
+                })
+            }
+        })
+
+        Vue.component('todo-item', {
+            props: ['coin'],
+            template: '<li>{{ coin.name }} {{ coin.symbol }} {{ coin.current_price }} {{ coin.price_change_percentage_1h_in_currency }} {{ coin.symbol }} {{ coin.symbol }} {{ coin.symbol }}</li>'
+        })
+    </script>
+</body>
+</html>
