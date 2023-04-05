@@ -38,7 +38,7 @@
 
         Vue.component('todo-item', {
             props: ['coin'],
-            template: '<li>{{ coin.name }} {{ coin.symbol }} {{ coin.current_price }} {{ coin.price_change_percentage_1h_in_currency }} {{ coin.symbol }} {{ coin.symbol }} {{ coin.symbol }}</li>'
+            template: '<li>{{ coin?.name }} {{ coin?.symbol }} {{ coin?.current_price }} {{ coin?.price_change_percentage_1h_in_currency }} {{ coin?.symbol }} {{ coin?.symbol }} {{ coin?.symbol }}</li>'
         })
     </script>
 </body>
